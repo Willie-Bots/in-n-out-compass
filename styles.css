@@ -35,40 +35,36 @@ h1 { margin-bottom: 8px; }
   transform-origin: 50% 100%;
   transform: translate(-50%, -100%) rotate(0deg);
 }
-.fries-arrow-head {
-  position: absolute;
-  left: 50%;
-  top: 0;
-  transform: translateX(-50%);
-  width: 0;
-  height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-bottom: 26px solid #f6c247;
-  filter: drop-shadow(0 0 6px rgba(246, 194, 71, 0.35));
-}
-.fries-pack {
+.fry-shaft {
   position: absolute;
   left: 50%;
   bottom: 8px;
+  width: 7px;
+  height: 102px;
   transform: translateX(-50%);
-  width: 30px;
-  height: 28px;
-  background: #ff3b2f;
-  border-radius: 4px 4px 9px 9px;
-  box-shadow: 0 0 8px rgba(255, 59, 47, 0.4);
-}
-.fries-stick {
-  position: absolute;
-  width: 5px;
   background: linear-gradient(to bottom, #ffe08a 0%, #f6c247 100%);
-  border-radius: 3px;
-  bottom: 28px;
+  border-radius: 4px;
+  box-shadow: 0 0 8px rgba(246, 194, 71, 0.35);
 }
-.fries-stick.f1 { left: 5px; height: 58px; transform: rotate(-4deg); }
-.fries-stick.f2 { left: 10px; height: 70px; transform: rotate(-2deg); }
-.fries-stick.f3 { left: 16px; height: 78px; transform: rotate(2deg); }
-.fries-stick.f4 { left: 21px; height: 62px; transform: rotate(4deg); }
+.fry-head {
+  position: absolute;
+  top: 8px;
+  width: 7px;
+  height: 34px;
+  background: linear-gradient(to bottom, #ffe08a 0%, #f6c247 100%);
+  border-radius: 4px;
+  box-shadow: 0 0 7px rgba(246, 194, 71, 0.35);
+}
+.fry-head-left {
+  left: calc(50% - 7px);
+  transform-origin: bottom center;
+  transform: rotate(-38deg);
+}
+.fry-head-right {
+  left: 50%;
+  transform-origin: bottom center;
+  transform: rotate(38deg);
+}
 
 .center-dot {
   position: absolute;
