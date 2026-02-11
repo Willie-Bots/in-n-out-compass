@@ -78,7 +78,7 @@ function onGeoSuccess(pos) {
     lat: pos.coords.latitude,
     lon: pos.coords.longitude,
   };
-  statusEl.textContent = `Location locked: ${userPos.lat.toFixed(4)}, ${userPos.lon.toFixed(4)}`;
+  statusEl.textContent = "Location enabled";
   updateNearest();
 }
 
@@ -148,7 +148,7 @@ async function loadLocations() {
   if (!res.ok) throw new Error("Failed to load locations.json");
   const data = await res.json();
   locations = data.locations || [];
-  statusEl.textContent = `Loaded ${locations.length} locations. Ready.`;
+  statusEl.textContent = "Ready";
 }
 
 startBtn.addEventListener("click", async () => {
