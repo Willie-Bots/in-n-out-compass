@@ -58,12 +58,12 @@ h1 { margin-bottom: 8px; }
 .fry-head-left {
   left: calc(50% - 7px);
   transform-origin: bottom center;
-  transform: rotate(-38deg);
+  transform: rotate(38deg);
 }
 .fry-head-right {
   left: 50%;
   transform-origin: bottom center;
-  transform: rotate(38deg);
+  transform: rotate(-38deg);
 }
 
 .center-dot {
