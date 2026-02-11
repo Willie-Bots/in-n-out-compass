@@ -27,10 +27,25 @@ body {
 
 h1 {
   margin: 0;
-  font-size: clamp(1.7rem, 4.8vw, 2.3rem);
-  letter-spacing: 0.2px;
   text-align: center;
   color: var(--ino-white);
+  line-height: 0.95;
+}
+
+.title-top,
+.title-bottom {
+  display: block;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+
+.title-top {
+  font-size: clamp(2.2rem, 9.2vw, 4.1rem);
+}
+
+.title-bottom {
+  font-size: clamp(2rem, 8.2vw, 3.6rem);
 }
 
 .target-line {
