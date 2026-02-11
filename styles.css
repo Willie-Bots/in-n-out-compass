@@ -61,6 +61,7 @@ h1 {
   display: grid;
   place-items: center;
   width: 100%;
+  transform: translateY(-16px);
 }
 
 .compass {
