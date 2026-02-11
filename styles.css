@@ -40,7 +40,7 @@ h1 { margin-bottom: 8px; }
   left: 50%;
   bottom: 8px;
   width: 7px;
-  height: 102px;
+  height: 96px;
   transform: translateX(-50%);
   background: linear-gradient(to bottom, #ffe08a 0%, #f6c247 100%);
   border-radius: 4px;
@@ -48,22 +48,21 @@ h1 { margin-bottom: 8px; }
 }
 .fry-head {
   position: absolute;
-  top: 8px;
+  top: 4px;
   width: 7px;
-  height: 34px;
+  height: 28px;
   background: linear-gradient(to bottom, #ffe08a 0%, #f6c247 100%);
   border-radius: 4px;
   box-shadow: 0 0 7px rgba(246, 194, 71, 0.35);
+  transform-origin: top center;
 }
 .fry-head-left {
-  left: calc(50% - 7px);
-  transform-origin: bottom center;
-  transform: rotate(38deg);
+  left: calc(50% - 5px);
+  transform: rotate(-38deg);
 }
 .fry-head-right {
-  left: 50%;
-  transform-origin: bottom center;
-  transform: rotate(-38deg);
+  left: calc(50% - 2px);
+  transform: rotate(38deg);
 }
 
 .center-dot {
