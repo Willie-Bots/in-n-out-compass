@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nearest In-N-Out Compass</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>Nearest In‑N‑Out Compass</h1>
+      <p class="sub">Uses your location + compass heading to point toward the nearest In‑N‑Out.</p>
+
+      <div class="compass-wrap">
+        <div class="compass" id="compass">
+          <div class="needle" id="needle"></div>
+          <div class="center-dot"></div>
+        </div>
+      </div>
+
+      <section class="card">
+        <button id="startBtn">Enable location + compass</button>
+        <p id="status">Waiting to start…</p>
+        <p id="target"></p>
+        <p id="distance"></p>
+        <p id="bearing"></p>
+      </section>
+
+      <details>
+        <summary>Notes</summary>
+        <ul>
+          <li>On iOS Safari, you may need to allow motion sensors after clicking start.</li>
+          <li>Compass quality varies by device; if heading is unavailable, app still shows nearest location details.</li>
+          <li>Location data is scraped from public In-N-Out location pages.</li>
+        </ul>
+      </details>
+    </main>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
