@@ -33,6 +33,15 @@ h1 {
   color: var(--ino-white);
 }
 
+.target-line {
+  margin: -4px 0 0;
+  text-align: center;
+  color: var(--ino-yellow);
+  font-weight: 600;
+  font-size: clamp(0.9rem, 2.8vw, 1rem);
+  max-width: 92vw;
+}
+
 .compass-wrap {
   display: grid;
   place-items: center;
