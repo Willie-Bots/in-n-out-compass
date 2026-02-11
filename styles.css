@@ -30,13 +30,38 @@ h1 { margin-bottom: 8px; }
   position: absolute;
   left: 50%;
   top: 50%;
-  width: 6px;
-  height: 120px;
-  background: linear-gradient(to top, #4da3ff 50%, #ff4d4d 50%);
+  width: 26px;
+  height: 128px;
   transform-origin: 50% 100%;
   transform: translate(-50%, -100%) rotate(0deg);
+}
+.shake-cup {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 26px;
+  height: 38px;
+  background: linear-gradient(to bottom, #fff2ef 0%, #ffe5e0 100%);
+  border: 2px solid #ff3b2f;
+  border-top-width: 5px;
+  border-radius: 4px 4px 10px 10px;
+  box-shadow: 0 0 8px rgba(255, 59, 47, 0.35);
+}
+.shake-straw {
+  position: absolute;
+  left: 50%;
+  bottom: 45px;
+  transform: translateX(-50%);
+  width: 6px;
+  height: 78px;
+  background: repeating-linear-gradient(
+    to bottom,
+    #ff3b2f 0 8px,
+    #ffffff 8px 16px
+  );
   border-radius: 3px;
-  box-shadow: 0 0 8px rgba(255, 77, 77, 0.4);
+  box-shadow: 0 0 6px rgba(255, 59, 47, 0.35);
 }
 .center-dot {
   position: absolute;
