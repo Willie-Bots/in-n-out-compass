@@ -32,6 +32,13 @@ h1 {
   line-height: 0.95;
 }
 
+.user-line {
+  margin: -8px 0 0;
+  color: rgba(255, 250, 242, 0.86);
+  font-size: 0.95rem;
+  min-height: 1.1em;
+}
+
 .title-top,
 .title-bottom {
   display: block;
@@ -163,6 +170,49 @@ button:active { transform: translateY(1px); }
   color: rgba(255, 250, 242, 0.78);
   text-align: center;
   min-height: 1.2em;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  place-items: center;
+  background: rgba(9, 4, 5, 0.82);
+  z-index: 20;
+  padding: 18px;
+}
+
+.overlay.active { display: grid; }
+
+.login-card {
+  width: min(92vw, 360px);
+  background: #200f10;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 14px;
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.login-card h2 {
+  margin: 0;
+  font-size: 1.35rem;
+}
+
+.login-card p {
+  margin: 0;
+  color: rgba(255, 250, 242, 0.8);
+  font-size: 0.92rem;
+}
+
+.login-card input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: #2a1618;
+  color: var(--ino-white);
+  border-radius: 10px;
+  padding: 11px 12px;
+  font-size: 1rem;
 }
 
 .hidden { display: none; }

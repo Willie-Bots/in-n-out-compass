@@ -5,11 +5,20 @@ const distEl = document.getElementById("distance");
 const distanceLineEl = document.getElementById("distanceLine");
 const bearingEl = document.getElementById("bearing");
 const needleEl = document.getElementById("needle");
+const userLineEl = document.getElementById("userLine");
+
+const loginOverlayEl = document.getElementById("loginOverlay");
+const loginFormEl = document.getElementById("loginForm");
+const nameInputEl = document.getElementById("nameInput");
+
+const USER_KEY = "inoCompassUser";
 
 let locations = [];
 let userPos = null;
 let headingDeg = null; // 0 = north
 let nearest = null;
+let geoWatchId = null;
+let confettiPopped = false;
 
 const toRad = (d) => (d * Math.PI) / 180;
 const toDeg = (r) => (r * 180) / Math.PI;
@@ -38,6 +47,37 @@ function initialBearing(a, b) {
   return (toDeg(Math.atan2(y, x)) + 360) % 360;
 }
 
+function fireArrivalConfetti() {
+  if (typeof window.confetti !== "function") return;
+  window.confetti({
+    particleCount: 90,
+    spread: 70,
+    startVelocity: 45,
+    origin: { y: 0.7 },
+    colors: ["#d8232a", "#f6c247", "#fffaf2"],
+  });
+  setTimeout(() => {
+    window.confetti({
+      particleCount: 70,
+      spread: 95,
+      startVelocity: 35,
+      origin: { y: 0.7 },
+      colors: ["#d8232a", "#f6c247", "#fffaf2"],
+    });
+  }, 220);
+}
+
+function maybeCelebrate(distanceMiles) {
+  // "0 miles" in real GPS is noisy, so use ~260ft threshold for arrival pop.
+  if (distanceMiles <= 0.05 && !confettiPopped) {
+    confettiPopped = true;
+    fireArrivalConfetti();
+  }
+  if (distanceMiles > 0.12) {
+    confettiPopped = false;
+  }
+}
+
 function updateNearest() {
   if (!userPos || !locations.length) return;
 
@@ -48,7 +88,6 @@ function updateNearest() {
       best = { loc, distanceMiles: d };
     }
   }
-
   if (!best) return;
 
   const bearing = initialBearing(userPos, {
@@ -64,14 +103,12 @@ function updateNearest() {
   if (distanceLineEl) distanceLineEl.textContent = milesText;
   bearingEl.textContent = `Bearing to target: ${bearing.toFixed(1)}°`;
 
+  maybeCelebrate(best.distanceMiles);
   renderNeedle();
 }
 
 function renderNeedle() {
   if (!nearest) return;
-
-  // If heading available: rotate by relative angle.
-  // If not: use absolute bearing (needle points as if top=North)
   const angle = headingDeg == null ? nearest.bearingDeg : nearest.bearingDeg - headingDeg;
   needleEl.style.transform = `translate(-50%, -100%) rotate(${angle}deg)`;
 }
@@ -89,8 +126,6 @@ function onGeoError(err) {
   statusEl.textContent = `Location error: ${err.message}`;
 }
 
-let geoWatchId = null;
-
 function startGeolocation() {
   if (!navigator.geolocation) {
     statusEl.textContent = "Geolocation not supported on this device.";
@@ -103,9 +138,7 @@ function startGeolocation() {
     maximumAge: 0,
   });
 
-  if (geoWatchId != null) {
-    navigator.geolocation.clearWatch(geoWatchId);
-  }
+  if (geoWatchId != null) navigator.geolocation.clearWatch(geoWatchId);
 
   geoWatchId = navigator.geolocation.watchPosition(onGeoSuccess, onGeoError, {
     enableHighAccuracy: true,
@@ -115,7 +148,6 @@ function startGeolocation() {
 }
 
 async function startCompass() {
-  // iOS requires user gesture + permission request
   if (
     typeof DeviceOrientationEvent !== "undefined" &&
     typeof DeviceOrientationEvent.requestPermission === "function"
@@ -137,17 +169,13 @@ async function startCompass() {
 }
 
 function onOrientation(e) {
-  // alpha in degrees clockwise from North on some platforms
   let heading = null;
-
   if (typeof e.webkitCompassHeading === "number") {
-    heading = e.webkitCompassHeading; // iOS Safari
+    heading = e.webkitCompassHeading;
   } else if (typeof e.alpha === "number") {
     heading = 360 - e.alpha;
   }
-
   if (heading == null || Number.isNaN(heading)) return;
-
   headingDeg = ((heading % 360) + 360) % 360;
   renderNeedle();
 }
@@ -160,12 +188,36 @@ async function loadLocations() {
   statusEl.textContent = "Ready";
 }
 
+function setUser(name) {
+  localStorage.setItem(USER_KEY, name);
+  userLineEl.textContent = `Hi, ${name}`;
+  loginOverlayEl.classList.remove("active");
+  startBtn.disabled = false;
+}
+
+function initLogin() {
+  const saved = localStorage.getItem(USER_KEY);
+  if (saved) {
+    userLineEl.textContent = `Hi, ${saved}`;
+    startBtn.disabled = false;
+    return;
+  }
+  loginOverlayEl.classList.add("active");
+  startBtn.disabled = true;
+  nameInputEl.focus();
+}
+
+loginFormEl.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const name = (nameInputEl.value || "").trim();
+  if (!name) return;
+  setUser(name);
+});
+
 startBtn.addEventListener("click", async () => {
   startBtn.disabled = true;
   try {
-    if (!locations.length) {
-      await loadLocations();
-    }
+    if (!locations.length) await loadLocations();
     startGeolocation();
     await startCompass();
   } catch (err) {
@@ -178,3 +230,5 @@ startBtn.addEventListener("click", async () => {
 loadLocations().catch(() => {
   statusEl.textContent = "Could not pre-load locations. Tap start to retry.";
 });
+
+initLogin();
