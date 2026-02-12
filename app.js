@@ -89,6 +89,8 @@ function onGeoError(err) {
   statusEl.textContent = `Location error: ${err.message}`;
 }
 
+let geoWatchId = null;
+
 function startGeolocation() {
   if (!navigator.geolocation) {
     statusEl.textContent = "Geolocation not supported on this device.";
@@ -98,13 +100,17 @@ function startGeolocation() {
   navigator.geolocation.getCurrentPosition(onGeoSuccess, onGeoError, {
     enableHighAccuracy: true,
     timeout: 12000,
-    maximumAge: 30000,
+    maximumAge: 0,
   });
 
-  navigator.geolocation.watchPosition(onGeoSuccess, onGeoError, {
+  if (geoWatchId != null) {
+    navigator.geolocation.clearWatch(geoWatchId);
+  }
+
+  geoWatchId = navigator.geolocation.watchPosition(onGeoSuccess, onGeoError, {
     enableHighAccuracy: true,
     timeout: 12000,
-    maximumAge: 15000,
+    maximumAge: 0,
   });
 }
 
