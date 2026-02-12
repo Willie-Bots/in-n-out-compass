@@ -57,6 +57,14 @@ h1 {
   max-width: 92vw;
 }
 
+.distance-line {
+  margin: -8px 0 0;
+  text-align: center;
+  color: rgba(255, 250, 242, 0.92);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 3.2vw, 1.05rem);
+}
+
 .compass-wrap {
   display: grid;
   place-items: center;

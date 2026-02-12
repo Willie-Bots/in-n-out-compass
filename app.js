@@ -2,6 +2,7 @@ const startBtn = document.getElementById("startBtn");
 const statusEl = document.getElementById("status");
 const targetEl = document.getElementById("target");
 const distEl = document.getElementById("distance");
+const distanceLineEl = document.getElementById("distanceLine");
 const bearingEl = document.getElementById("bearing");
 const needleEl = document.getElementById("needle");
 
@@ -58,7 +59,9 @@ function updateNearest() {
   nearest = { ...best, bearingDeg: bearing };
 
   targetEl.textContent = `Nearest: ${best.loc.city_state} — ${best.loc.address_line}`;
+  const milesText = `${best.distanceMiles.toFixed(2)} mi away`;
   distEl.textContent = `Distance: ${best.distanceMiles.toFixed(2)} mi`;
+  if (distanceLineEl) distanceLineEl.textContent = milesText;
   bearingEl.textContent = `Bearing to target: ${bearing.toFixed(1)}°`;
 
   renderNeedle();
